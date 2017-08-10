@@ -89,7 +89,9 @@ class CollectionPgae extends Component {
         window.location.reload()
         message.success('清除成功');
     }
-
+    backHandler(){
+        this.context.router.goBack()
+    }
     render() {
         const { newData }  = this.state
         const columns = [
@@ -117,6 +119,7 @@ class CollectionPgae extends Component {
         return (
             <div  className="TabelContainer">
                 <Button type="primary" onClick={this.emptyHandler.bind(this)}>清空收藏</Button>
+                <Button type="primary" style={{float:'right'}} onClick={this.backHandler.bind(this)}>返回商品列表</Button>
                 <Table columns={columns}
                        dataSource={newData}
                        rowKey={row => row.id}
@@ -126,6 +129,10 @@ class CollectionPgae extends Component {
             </div>
         )
     }
+}
+
+CollectionPgae.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 export default CollectionPgae
