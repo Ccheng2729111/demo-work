@@ -51,6 +51,34 @@ const data = [
         number:1,
         collection:false
     },
+    {
+        id:7,
+        productName:'显示器',
+        category:'数码',
+        number:1,
+        collection:false
+    },
+    {
+        id:8,
+        productName:'显示器',
+        category:'数码',
+        number:1,
+        collection:false
+    },
+    {
+        id:9,
+        productName:'显示器',
+        category:'数码',
+        number:1,
+        collection:false
+    },
+    {
+        id:10,
+        productName:'显示器',
+        category:'数码',
+        number:1,
+        collection:false
+    },
 ];
 
 class HomePage extends Component {
@@ -63,9 +91,14 @@ class HomePage extends Component {
     CollectionHandler(id){
         this.setState({
             collectionData:this.state.collectionData.concat(id)  //此处state存储已选id的目的是控制每种商品只能储存一次。
-        },()=>{
-            message.success('收藏成功')
         })
+        if(window.sessionStorage.id){                       //使用H5的新API sessionStorage进行储存id的数组。
+            window.sessionStorage.id = window.sessionStorage.id.concat(id)
+        } else {
+            let a = [];
+            window.sessionStorage.id = a.concat(id)
+        }
+        message.success('收藏成功')
         //TODO 此处可以尝试使用react-router进行传值。
         /*this.context.router.push({
             pathname:'/message',
@@ -73,12 +106,6 @@ class HomePage extends Component {
                 idList:this.state.collectionData.concat(id)
             }
         });*/
-        if(window.sessionStorage.id){                       //使用H5的新API sessionStorage进行储存id的数组。
-            window.sessionStorage.id = _.uniq(window.sessionStorage.id.concat(id))
-        } else {
-            let a = [];
-            window.sessionStorage.id = a.concat(id)
-        }
     }
     jumpHandler(){
         this.context.router.push({
@@ -116,7 +143,7 @@ class HomePage extends Component {
                 key:'collection',
                 render:(data,row)=>{
                     return(
-                        <Button type="primary" disabled={_.includes(window.sessionStorage.id,row.id)} onClick={this.CollectionHandler.bind(this,row.id)}>收藏</Button>
+                        <Button type="primary" disabled={_.includes(window.sessionStorage.id,row.id)} onClick={this.CollectionHandler.bind(this,row.id+'/')}>收藏</Button>
                     )
                 }
             }

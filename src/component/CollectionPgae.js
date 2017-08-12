@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table ,message,Button} from 'antd'
 import 'antd/dist/antd.css';
 import './style.css'
+import _ from 'lodash'
 
 //实际项目中，用户点击收藏的时候会对接口进行调用，当用户进入该页面的时候，应该有后台传给前端已经收藏的数据。
 //由于不是前后端联动的项目，并且只是个demo，故存储在sessionStorage,必要的时候我们可以清楚数据，等同于清楚收藏页面。
@@ -48,6 +49,34 @@ const data = [
         number:1,
         collection:false
     },
+    {
+        id:7,
+        productName:'显示器',
+        category:'数码',
+        number:1,
+        collection:false
+    },
+    {
+        id:8,
+        productName:'显示器',
+        category:'数码',
+        number:1,
+        collection:false
+    },
+    {
+        id:9,
+        productName:'显示器',
+        category:'数码',
+        number:1,
+        collection:false
+    },
+    {
+        id:10,
+        productName:'显示器',
+        category:'数码',
+        number:1,
+        collection:false
+    },
 ];
 
 
@@ -68,7 +97,7 @@ class CollectionPgae extends Component {
         }*/
         if(window.sessionStorage.id){
             this.setState({
-                newData:this.findCollection(window.sessionStorage.id,data)
+                newData:this.findCollection(_.slice(window.sessionStorage.id.split('/'),0,window.sessionStorage.id.split('/').length-1),data)
             })
         }
     }
